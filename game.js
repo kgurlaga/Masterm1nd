@@ -1,5 +1,8 @@
 const canvas = document.getElementById("game_canvas");
-const ctx = canvas.getContext();
+const ctx = canvas.getContext("2d");
+
+const PILL_HEIGHT = 80;
+const PILL_WIDTH = 80;
 
 colors = ["firebrick", "seagreen", "dodgerblue", "orange", "yellow", "sienna", "magenta", "gray"]
 solution = ["firebrick", "seagreen", "dodgerblue", "magenta", "yellow"];
@@ -13,7 +16,8 @@ for (let i = 0; i < 8; i++){
 
 function drawPill(x, y, type) {
     if (type == "empty") {
-        
+        ctx.strokeStyle = "white";
+        ctx.strokeRect(x, y, PILL_WIDTH, PILL_HEIGHT);
     }
 }
 
@@ -26,4 +30,4 @@ function startBoard() {
 
 window.addEventListener('load', function () {
     startBoard();
-});ss
+});
