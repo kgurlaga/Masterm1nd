@@ -26,4 +26,4 @@ function startBoard() {
 
 window.addEventListener('load', function () {
     startBoard();
-});
+});ss
