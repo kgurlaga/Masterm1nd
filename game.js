@@ -35,6 +35,11 @@ function checkBoard() {
     active_pill = 0;
     startBoard();
     drawArrow();
+    //Rysuj ostatnią próbę
+    for (let i = 0; i < 5; i++){
+        drawPill(100 + i * 100, 250, state[i])
+    }
+    //Oceń ostatnią próbę
 }
 
 function drawPill(x, y, type) {
