@@ -30,6 +30,13 @@ function guess(evt) {
     }
 }
 
+function checkBoard() {
+    console.log("stan planszy: " + state);
+    active_pill = 0;
+    startBoard();
+    drawArrow();
+}
+
 function drawPill(x, y, type) {
     if (type == "empty") {
         ctx.strokeStyle = "white";
@@ -49,6 +56,8 @@ function drawArrow() {
 }
 
 function startBoard() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(90, 40, 500, 100);
     for (let i = 0; i < 5; i++){
         drawPill(100 + i * 100, 50, "empty");
     }
