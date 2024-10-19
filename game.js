@@ -14,16 +14,35 @@ for (let i = 0; i < 8; i++){
     let name = "#c" + (i + 1)
     let elem = document.querySelector(name);
     elem.style.backgroundColor = colors[i];
+    elem.addEventListener("click", guess, false);
+    elem.color = colors[i];
+}
+
+function guess(evt) {
+    //alert(evt.currentTarget.color);
+    if (active_pill >= 0 && active_pill <= 4) {
+        let pill_color = evt.currentTarget.color;
+        drawPill(100 + active_pill * 100, 50, pill_color);
+        state[active_pill] = pill_color;
+        if (active_pill < 4) active_pill++;
+        else checkBoard();
+        drawArrow();
+    }
 }
 
 function drawPill(x, y, type) {
     if (type == "empty") {
         ctx.strokeStyle = "white";
         ctx.strokeRect(x, y, PILL_WIDTH, PILL_HEIGHT);
+    } else {
+        ctx.fillStyle = type;
+        ctx.fillRect(x, y, PILL_WIDTH, PILL_HEIGHT);
     }
 }
 
 function drawArrow() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(100, 140, 480, 60);
     ctx.fillStyle = "white";
     ctx.font = "32px Arial";
     ctx.fillText("↑", 135 + active_pill * 100, 180);
