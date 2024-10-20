@@ -5,6 +5,11 @@ const PILL_HEIGHT = 80;
 const PILL_WIDTH = 80;
 
 let active_pill = 0;
+let round_no = 1;
+
+const ok = new Image(50, 50); ok.src = "assets/ok.png";
+const elsewhere = new Image(50, 50); elsewhere.src = "assets/elsewhere.png";
+const none = new Image(50, 50); none.src = "assets/none.png";
 
 colors = ["firebrick", "seagreen", "dodgerblue", "orange", "yellow", "sienna", "magenta", "gray"]
 solution = ["firebrick", "seagreen", "dodgerblue", "magenta", "yellow"];
@@ -39,10 +44,35 @@ function checkBoard() {
     for (let i = 0; i < 5; i++){
         drawPill(100 + i * 100, 250, state[i])
     }
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(100, 350, 480, 80);
+
     //Oceń ostatnią próbę
+    for (let i = 0; i < 5; i++){
+        if (state[i] == solution[i]) {
+            ctx.drawImage(ok, 115 + i * 100, 360);
+        } else {
+            let inny_spot = false;
+            for (let j = 0; j < 5; j++){
+                if (state[i] == solution[j]) inny_spot = true;
+            }
+            if (inny_spot) {
+                ctx.drawImage(elsewhere, 115 + i * 100, 360);
+            } else {
+                ctx.drawImage(none, 115 + i * 100, 360);
+            }
+        }
+    }
+
+    //Sprawdzenie wygranej
+    round_no++;
+    drawScore();
 }
 
 function drawPill(x, y, type) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(x - 5, y - 5, PILL_WIDTH + 10, PILL_HEIGHT + 10);
     if (type == "empty") {
         ctx.strokeStyle = "white";
         ctx.strokeRect(x, y, PILL_WIDTH, PILL_HEIGHT);
@@ -69,6 +99,38 @@ function startBoard() {
     drawArrow();
 }
 
+function resetPill() {
+    if (active_pill > 0) {
+        drawPill(100 + (active_pill - 1) * 100, 50, "empty");
+        state[active_pill - 1] = "empty";
+        console.log("resetPill: " + state);
+        active_pill--;
+        drawArrow();
+    }
+}
+
+function drawScore() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(640, 40, 110, 130);
+    ctx.strokeStyle = "orange";
+    ctx.beginPath();
+    ctx.arc(692, 90, 45, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    ctx.fillStyle = "orange";
+    ctx.font = "44px Arial";
+    if (round_no < 10)
+        ctx.fillText(round_no, 680, 105);
+    else
+        ctx.fillText(round_no, 670, 105);
+
+    ctx.font = "20px Arial";
+    ctx.fillText("RUNDA", 660, 165);
+}
+
 window.addEventListener('load', function () {
     startBoard();
+    drawScore();
 });
+
+document.querySelector("#delete").addEventListener("click", resetPill, false);
