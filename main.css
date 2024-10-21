@@ -57,3 +57,40 @@ h1 {
 	color: #666;
 	border: 1px solid #666;
 }
+
+#help{
+	font-size: 20px;
+	letter-spacing: 5px;
+	color: #666;
+}
+
+#help:hover{
+	color: orange;
+	cursor: pointer;
+}
+
+.help{
+	display: none;
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	background-color: black;
+	border: 2px solid orange;
+	left: 0;
+	right: 0;
+	margin: auto;
+	padding: 10px 30px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#closehelp{
+	position: relative;
+	left: 350px;
+	color: orange;
+}
+
+#closehelp:hover{
+	color: white;
+	cursor: pointer;
+}
